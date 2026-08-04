@@ -1,5 +1,21 @@
-# Todo List
+# Master Task Tracking List
 
-- [ ] Complete PRD
-- [ ] Detail Implementation Plan
-- [ ] Start working on tasks
+## Core Feature Track
+- [x] Complete PRD (`docs/instructions/PRD.md`)
+- [x] Detail Architecture & Implementation Plan (`docs/instructions/PLAN.md`)
+- [x] Core Grid Movement & Barrier Engineering (`police_base_grid_movement`, `police_barrier_engineering`)
+- [x] Scent Emission & Decay Model (`police_scent_tracking`)
+- [x] Distance Heuristics & Capture Mechanics (`police_distance_heuristics`, `police_capture_mechanics`)
+- [x] SHA-256 Commit-Reveal Cryptographic Protocol (`police_commit_reveal_crypto`)
+- [x] FastMCP P2P Server & Network Transport (`police_p2p_fastmcp_server`)
+- [x] Orchestrator Gateway & State Machine (`police_orchestrator_gateway`, `police_state_machine`)
+- [x] Gatekeeper Rate Limiter & DOS Detector (`police_gatekeeper_rate_limiter`)
+- [x] Watchdog Resilience & Deadline Tracker (`police_watchdog_resilience`)
+- [x] Bayesian Belief Map & Police Brain (`police_bayesian_belief`, `police_strategy_decision_engine`)
+- [x] Live Heatmap GUI & Replay Verifier (`police_live_gui_heatmap`, `police_replay_verifier`)
+- [x] Gmail API Automated Match Reporter (`police_gmail_reporting_automation`)
+- [x] Shared Contract & Configuration Management (`police_config_contract_management`)
+- [x] Thief Evasion Brain & Dual Match Simulator (`police_thief_evasion_brain`)
+- [x] Application CLI Runner & Executable Entry Points (`police_cli_entrypoint_runner`)
+- [x] Academic Documentation & Mechanism PRDs (`police_academic_documentation_prds`)
+- [x] Experimentation, Analysis Notebooks & Benchmarking (`police_experimentation_notebooks`)
