@@ -1,0 +1,35 @@
+{
+  "num_matches": 5,
+  "grid_size": 7,
+  "cop_wins": 0,
+  "thief_wins": 5,
+  "mean_turns": 35.0,
+  "matches": [
+    {
+      "match_id": 1,
+      "outcome": "THIEF_WIN",
+      "total_turns": 35
+    },
+    {
+      "match_id": 2,
+      "outcome": "THIEF_WIN",
+      "total_turns": 35
+    },
+    {
+      "match_id": 3,
+      "outcome": "THIEF_WIN",
+      "total_turns": 35
+    },
+    {
+      "match_id": 4,
+      "outcome": "THIEF_WIN",
+      "total_turns": 35
+    },
+    {
+      "match_id": 5,
+      "outcome": "THIEF_WIN",
+      "total_turns": 35
+    }
+  ],
+  "timestamp": "2026-08-05T06:46:58Z"
+}
