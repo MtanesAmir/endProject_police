@@ -22,3 +22,11 @@ def test_config_loader_load_private_config():
     loader = ConfigLoader(contract_path="config/game.json", private_config_path="config/game.toml")
     private = loader.load_private_config()
     assert "network" in private
+
+
+def test_config_loader_role_isolation():
+    loader = ConfigLoader()
+    police_config = loader.load_private_config(role="police")
+    thief_config = loader.load_private_config(role="thief")
+    assert police_config["network"]["my_port"] == 8802
+    assert thief_config["network"]["my_port"] == 8801

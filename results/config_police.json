@@ -1,0 +1,11 @@
+{
+  "artifact_type": "config",
+  "agent_role": "Police",
+  "grid_size": 7,
+  "timeout_ms": 50,
+  "max_turns": 50,
+  "police_config": {
+    "mode": "Dec-POMDP",
+    "zero_trust": true
+  }
+}

@@ -3,14 +3,16 @@
 import argparse
 import sys
 import os
+import json
 from typing import List, Optional
 
 from src.p2p.server import FastMCPServer
 from src.gui.replay_verifier import ReplayVerifier
+from src.automation.reporting import GmailReporter
 
 
 def create_parser() -> argparse.ArgumentParser:
-    """Create command line argument parser with subcommands 'peer' and 'replay'."""
+    """Create command line argument parser with subcommands 'peer', 'replay', and 'report'."""
     parser = argparse.ArgumentParser(
         prog="police_thief",
         description="Distributed Cops-and-Robbers over a Peer-to-Peer Network (Dec-POMDP) CLI"
@@ -33,6 +35,11 @@ def create_parser() -> argparse.ArgumentParser:
     # Subcommand: replay
     replay_parser = subparsers.add_parser("replay", help="Replay and verify match log integrity")
     replay_parser.add_argument("--log", required=True, help="Path to match JSON log file")
+
+    # Subcommand: report
+    report_parser = subparsers.add_parser("report", help="Compile and export match JSON artifacts")
+    report_parser.add_argument("--summary", default="logs/police_match.json", help="Path to match summary JSON")
+    report_parser.add_argument("--outdir", default="results", help="Target output directory (default: results)")
 
     return parser
 
@@ -60,6 +67,25 @@ def main(args_list: Optional[List[str]] = None) -> int:
         status = result.get("status", "UNKNOWN")
         print(f"[REPLAY VERIFIER] Log: {args.log} -> Result: {status}")
         return 0 if status == "Verified OK" else 1
+
+    elif args.command == "report":
+        reporter = GmailReporter()
+        summary_data = {}
+        if os.path.exists(args.summary):
+            try:
+                with open(args.summary, "r", encoding="utf-8") as f:
+                    summary_data = json.load(f)
+            except Exception:
+                pass
+
+        artifacts = reporter.compile_match_reports(summary_data)
+        os.makedirs(args.outdir, exist_ok=True)
+        for name, content in artifacts.items():
+            outpath = os.path.join(args.outdir, name)
+            with open(outpath, "w", encoding="utf-8") as f:
+                json.dump(content, f, indent=2)
+        print(f"[REPORT ARTIFACTS] Exported {len(artifacts)} signed JSON match artifacts to '{args.outdir}/'")
+        return 0
 
     else:
         parser.print_help()

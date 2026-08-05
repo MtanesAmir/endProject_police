@@ -51,14 +51,21 @@ class ConfigLoader:
 
         return True
 
-    def load_private_config(self) -> Dict[str, Any]:
-        """Load private per-peer TOML config file."""
-        if not os.path.exists(self.private_config_path):
+    def load_private_config(self, role: Optional[str] = None) -> Dict[str, Any]:
+        """Load private per-peer TOML config file with zero-trust role path resolution."""
+        target_path = self.private_config_path
+
+        if role:
+            role_specific_path = f"config/{role}/game.toml"
+            if os.path.exists(role_specific_path):
+                target_path = role_specific_path
+
+        if not os.path.exists(target_path):
             # Return standard default dictionary if TOML config is not present
             return {
                 "network": {"my_port": 8802, "opponent_url": "http://127.0.0.1:8801/mcp"},
                 "strategy": {"police_class": "src.strategy.police_brain:MyPoliceBrain"},
             }
 
-        with open(self.private_config_path, "rb") as f:
+        with open(target_path, "rb") as f:
             return tomllib.load(f)

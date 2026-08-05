@@ -1,0 +1,138 @@
+{
+  "artifact_type": "log",
+  "agent_role": "Police",
+  "total_steps": 0,
+  "verified_ok": true,
+  "trajectory_summary": [
+    {
+      "turn": 1,
+      "cop": [
+        0,
+        1
+      ],
+      "thief": [
+        4,
+        3
+      ],
+      "cop_commit": "e64ffeed024510193e7ef3d8bae245feca0a8ca2c85ce5e6b96bc0916f2078b6",
+      "thief_commit": "d867ba1b0f50c3214aede835c098ec32509280f13e9f6847606f13abb66bf1a8"
+    },
+    {
+      "turn": 2,
+      "cop": [
+        0,
+        2
+      ],
+      "thief": [
+        5,
+        3
+      ],
+      "cop_commit": "6b3e623340209b90a1296e89bd9447d0e1a732ca0615d78e7b8ad208316f7eb4",
+      "thief_commit": "bfec3e78d601bcecf07cf4ecb7be0c57a796840099586d6ba93df247f7b0a99d"
+    },
+    {
+      "turn": 3,
+      "cop": [
+        0,
+        3
+      ],
+      "thief": [
+        6,
+        3
+      ],
+      "cop_commit": "ef89f0e166b1397233d576f56dfd521c2ef1ea3655b6a57c62f1b07d2b337918",
+      "thief_commit": "8806e8a7a34549019414aaf9f1045669485da2fa2baf0deb789c9a31ee0539f9"
+    },
+    {
+      "turn": 4,
+      "cop": [
+        1,
+        3
+      ],
+      "thief": [
+        6,
+        2
+      ],
+      "cop_commit": "1c7ab3265accd03425f5a4c1adef1a01640887a20c455c0246716312fa9063d9",
+      "thief_commit": "32eebe50a047ca41ef51e9d13b4c0b0692f854ab0112f568b3b57aa9375ea750"
+    },
+    {
+      "turn": 5,
+      "cop": [
+        1,
+        2
+      ],
+      "thief": [
+        6,
+        1
+      ],
+      "cop_commit": "917719b36b0d552469bedbbd4694dfced07ac9c3a57dd399379de8d36ddb3f88",
+      "thief_commit": "470296de781f431520847e54e76c8e648e6bc7eaf59f513e0c95962b46e907d0"
+    },
+    {
+      "turn": 6,
+      "cop": [
+        1,
+        1
+      ],
+      "thief": [
+        6,
+        0
+      ],
+      "cop_commit": "db247e928b89967a4a9bd6cd51a8ef2406824f48ee445b3abf7f9c089e6853ec",
+      "thief_commit": "df12bb852de29fdd73e40878bbdd63ce8c1720f47e958ce4a45d2fd6a525b909"
+    },
+    {
+      "turn": 7,
+      "cop": [
+        1,
+        0
+      ],
+      "thief": [
+        6,
+        0
+      ],
+      "cop_commit": "90fb1bd5e102d9df2014efbf9335e906c82c6f0a0b270fd08bef8789b1709718",
+      "thief_commit": "b2869429f4ae2f2bc749ffb6c8e64b5d51bbf85d388d84e7e9c37130368f6e04"
+    },
+    {
+      "turn": 8,
+      "cop": [
+        2,
+        0
+      ],
+      "thief": [
+        6,
+        1
+      ],
+      "cop_commit": "2479f3a3c49f102031369892b5adb7bf9deb9bd469ce35da05c26cd7debea06a",
+      "thief_commit": "591e330909e884ce6b52841049da42744b3dce95328f939f7c8adf207f658022"
+    },
+    {
+      "turn": 9,
+      "cop": [
+        2,
+        1
+      ],
+      "thief": [
+        6,
+        2
+      ],
+      "cop_commit": "73275aab876452697076bbee40f44875329f831e657d7b5ea9f1fbc2379f8785",
+      "thief_commit": "fdc1a06f97031142e0621bcbe6f97b4e51d0f65c33ea553b44a42e0ee8751fea"
+    },
+    {
+      "turn": 10,
+      "cop": [
+        2,
+        2
+      ],
+      "thief": [
+        6,
+        3
+      ],
+      "cop_commit": "e2e54d1916698b974e6fef3d08866ca6fa56b70d3d22ecd8b370abedef17ae72",
+      "thief_commit": "1d076ae5088ef962869a654136bd03e46e736f697e3f04362ea72ed4193d4f5b"
+    }
+  ]
+}

@@ -1,0 +1,28 @@
+version = "1.10"
+
+[game]
+group_name = "Police-Thief-Team"
+group_id = "police-thief-team"
+role = "police"
+sub_game_number = 1
+members = ["student-1", "student-2"]
+repos = { cop = "https://github.com/MtanesAmir/endProject_police", thief = "https://github.com/MtanesAmir/endProject_police" }
+
+[network]
+my_port = 8802
+opponent_url = "http://127.0.0.1:8801/mcp"
+turn_timeout_seconds = 180
+
+[strategy]
+police_class = "src.strategy.police_brain:MyPoliceBrain"
+
+[trash_talk]
+provider = "template"
+
+[llm]
+model = "claude-opus-4-8[1m]"
+step_deadline_seconds = 30
+
+[email]
+recipient = "evaluator@police-agent.org"
+mode = "draft"

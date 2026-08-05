@@ -1,0 +1,11 @@
+{
+  "artifact_type": "result",
+  "agent_role": "Police",
+  "outcome": "THIEF_WIN",
+  "final_score": 0,
+  "token_consumption_stats": {
+    "prompt_tokens": 0,
+    "completion_tokens": 0
+  },
+  "timestamp": "2026-08-05T19:25:18Z"
+}
