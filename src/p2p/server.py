@@ -2,7 +2,41 @@
 
 import hashlib
 import json
-from typing import Any, Dict, Optional
+import threading
+from http.server import HTTPServer, BaseHTTPRequestHandler
+import urllib.request
+from typing import Any, Dict, Optional, List
+
+
+class FastMCPHTTPHandler(BaseHTTPRequestHandler):
+    """HTTP handler dispatching JSON-RPC requests to parent FastMCPServer."""
+
+    server_instance: Optional["FastMCPServer"] = None
+
+    def do_POST(self):
+        """Handle incoming JSON-RPC POST requests."""
+        content_len = int(self.headers.get("Content-Length", 0))
+        post_body = self.rfile.read(content_len)
+
+        try:
+            req_data = json.loads(post_body.decode("utf-8"))
+            if self.server_instance:
+                res_data = self.server_instance.handle_jsonrpc(req_data)
+            else:
+                res_data = {"jsonrpc": "2.0", "error": {"code": -32603, "message": "Server instance unavailable"}, "id": 1}
+        except Exception as e:
+            res_data = {"jsonrpc": "2.0", "error": {"code": -32700, "message": f"Parse error: {str(e)}"}, "id": 1}
+
+        res_bytes = json.dumps(res_data).encode("utf-8")
+        self.send_response(200)
+        self.send_header("Content-Type", "application/json")
+        self.send_header("Content-Length", str(len(res_bytes)))
+        self.end_headers()
+        self.wfile.write(res_bytes)
+
+    def log_message(self, format, *args):
+        """Silence standard request logging."""
+        pass
 
 
 class FastMCPServer:
@@ -20,19 +54,60 @@ class FastMCPServer:
         self.port = port
         self.opponent_url = opponent_url
         self.is_running = False
+        self.httpd: Optional[HTTPServer] = None
+        self._server_thread: Optional[threading.Thread] = None
 
         # Zero-trust isolated local ledger
         self.commitments: Dict[int, Dict[str, str]] = {}
         self.revealed_moves: Dict[int, Dict[str, Any]] = {}
         self.received_signed_moves: List[Dict[str, str]] = []
 
-    def start(self) -> None:
+    def start(self, background: bool = False) -> None:
         """Start the FastMCP server instance."""
         self.is_running = True
+        if background:
+            try:
+                FastMCPHTTPHandler.server_instance = self
+                bind_host = "127.0.0.1" if self.host == "0.0.0.0" else self.host
+                self.httpd = HTTPServer((bind_host, self.port), FastMCPHTTPHandler)
+                self._server_thread = threading.Thread(target=self.httpd.serve_forever, daemon=True)
+                self._server_thread.start()
+            except Exception:
+                pass
 
     def stop(self) -> None:
         """Stop the FastMCP server instance."""
         self.is_running = False
+        if self.httpd:
+            try:
+                self.httpd.shutdown()
+                self.httpd.server_close()
+            except Exception:
+                pass
+            self.httpd = None
+
+    def call_opponent(self, method: str, params: Dict[str, Any]) -> Dict[str, Any]:
+        """Send JSON-RPC request to opponent peer URL."""
+        if not self.opponent_url:
+            return {"status": "error", "message": "No opponent URL configured"}
+
+        payload = json.dumps({
+            "jsonrpc": "2.0",
+            "method": method,
+            "params": params,
+            "id": 1
+        }).encode("utf-8")
+
+        try:
+            req = urllib.request.Request(
+                self.opponent_url,
+                data=payload,
+                headers={"Content-Type": "application/json"}
+            )
+            with urllib.request.urlopen(req, timeout=5) as resp:
+                return json.loads(resp.read().decode("utf-8"))
+        except Exception as e:
+            return {"status": "error", "message": str(e)}
 
     def send_commitment(self, commitment_hash: str, turn: int, sender_id: str = "thief") -> Dict[str, Any]:
         """Tool stub: receive and store cryptographic commitment hash for a turn."""
@@ -56,7 +131,6 @@ class FastMCPServer:
         if not stored_hash:
             return {"status": "rejected", "error": f"No commitment found for turn {turn} from {sender_id}"}
 
-        # Calculate SHA-256 hash of move:salt
         expected_hash = hashlib.sha256(f"{move}:{salt}".encode("utf-8")).hexdigest()
         if expected_hash != stored_hash:
             return {
@@ -93,7 +167,6 @@ class FastMCPServer:
         if not signed_move or not signature:
             return {"status": "rejected", "error": "Missing signed_move or signature"}
 
-        # Basic zero-trust signature check (non-empty / valid string verification)
         if signature.startswith("invalid"):
             return {"status": "rejected", "error": "Invalid cryptographic signature"}
 

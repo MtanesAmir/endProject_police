@@ -26,3 +26,8 @@
 - [x] Public Tunneling Integration (`police_ngrok_public_tunneling`)
 - [x] Interactive Notebook Plots & Visualizations (`police_interactive_notebook_plots`)
 - [x] Match Artifact Export CLI Subcommand (`police_artifact_export_cli_cmd`)
+- [x] Custom Strategy Integration Guide (`police_custom_strategy_guide`)
+- [x] Empirical Research & Performance Report (`police_research_performance_report`)
+- [x] Open-Source MIT License Configuration (`police_project_license_legal`)
+- [x] P2P FastMCP HTTP Server Transport Binding (`police_http_p2p_network_server`)
+- [x] Academic Submission Form Evaluation Summary (`police_submission_form_evaluation`)

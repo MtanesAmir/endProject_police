@@ -4,5 +4,7 @@ __pycache__/
 .pytest_cache/
 .vscode/
 .idea/
+.coverage
+.env
 credentials.json
 token.json

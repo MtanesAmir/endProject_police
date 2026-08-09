@@ -12,8 +12,8 @@
         4,
         3
       ],
-      "cop_commit": "097af14d754ebec8abfad64d81413dd830690c9133ed1767f726ae1eebb35622",
-      "thief_commit": "51035f456927c3367a3ab16ec216f04af007c187e844dfe51e3b59a2b2c7c244"
+      "cop_commit": "3e0f57d5fab1d0ed855d3d635abd107c4101c860ba7007533b41508d2f19796e",
+      "thief_commit": "a1b561906e4a9f593de5629477afadd680590699285a842d1006874583bbed76"
     },
     {
       "turn": 2,
@@ -25,8 +25,8 @@
         5,
         3
       ],
-      "cop_commit": "c850058f7b9364192eb5484c8c3d49447ff2de492bcd3845f09f9748bf1d9f2a",
-      "thief_commit": "986539f51a7d8b04bd932088238c8a1c7890cbf42d305df159e3718acfef39ef"
+      "cop_commit": "653cd8f7817dc30a464b190ab4acf9a5c05fbeedc84481d943f51ef56770e4f3",
+      "thief_commit": "6c8c5e17b71cfb8cc965e5eea7f81d018d3c3c368a173e8626a8eef90e0ef752"
     },
     {
       "turn": 3,
@@ -38,8 +38,8 @@
         6,
         3
       ],
-      "cop_commit": "9d90978479788181ca4ae143cdde412e45e3c14a8c0c2f45972b9ce8ddf37549",
-      "thief_commit": "710baffcd7d76292496d333468807d7bbf27ce90172dc3006c1f680252c5e760"
+      "cop_commit": "3ca4ec79ae4714fac8907cec89da79190ddbd4560ce0f3e4a5845e6ce066c451",
+      "thief_commit": "aa5a05923c39bc262195e079c601410fcfa45a5b4e41a25c15d2683aef8a3df5"
     },
     {
       "turn": 4,
@@ -51,8 +51,8 @@
         6,
         2
       ],
-      "cop_commit": "18975ac275ffb62e517fb29d52ae73247d298e0dc82cdd481b97e02b0625d6d4",
-      "thief_commit": "8d575e50d3d0c5e1dad7f7997eb3da38c28dc4fe2b9c664ae6c6d0cf38795c8b"
+      "cop_commit": "f34250d01ed10d3a75f3b8e7690799fc2a46e4c811ec9657502e291bb1d19051",
+      "thief_commit": "f00042e0913a59e0035e7c46b701e1e4bd4731cab3fec168797473277edd352f"
     },
     {
       "turn": 5,
@@ -64,8 +64,8 @@
         6,
         1
       ],
-      "cop_commit": "4bf698566682dfabd33bcfd52080b5fdb1ade88a2f0be13e8472259deca09d07",
-      "thief_commit": "70f817580d4dd5528bc6aed2677b2398d337a31628c1067504fa78b631b70f5e"
+      "cop_commit": "13243c8476b548a3e4b867d0c9b752a32a832ae0e031cdb37b0d2dbf0934ead3",
+      "thief_commit": "3430ced279958b854e09d40965758e4f50df4d901f18386720c455523d405224"
     },
     {
       "turn": 6,
@@ -77,8 +77,8 @@
         6,
         0
       ],
-      "cop_commit": "94a4146883efd59a71b9da7277b80446add4cc8d4e977b2e029b393c58fda51a",
-      "thief_commit": "e866ab24edf521b73c0eee0a5b65c800244b6547a4817a6ea6fb9d0d3574e326"
+      "cop_commit": "d1ec1fd923b812d65b34116e8a7b396ea31cd979f56bee84486a482e17c621ef",
+      "thief_commit": "c96bea8bf736c342db7bca3a108f3a6946895064aa6dba51fa9e71453f4448bc"
     },
     {
       "turn": 7,
@@ -90,8 +90,8 @@
         6,
         0
       ],
-      "cop_commit": "01da1706f2c98b9e693c8cd108249f1627452e7f4e4cb769ead179d8d381beb2",
-      "thief_commit": "47b5120932ab4f2bc68f162249f4854513335f5541937520eaab291dd9cca54c"
+      "cop_commit": "1ea8da34d7862d9fe8975472a99c893b6662b1069e57bd0b81edbe388d53a07a",
+      "thief_commit": "c9470db30524d4fd8c8a8745e8df790cb688e1b7df4714bfff8d9de3d83c6a45"
     },
     {
       "turn": 8,
@@ -103,8 +103,8 @@
         6,
         1
       ],
-      "cop_commit": "4b0b4ab57a89b82f6be6ffa32bdac385c789bb0073ccf1c271e4b74bee7dec58",
-      "thief_commit": "b5c92ce8cc081707bb5190ca22600df329d153110921752f8758d9bdce9285a0"
+      "cop_commit": "c6b0c42f98ba3663291703ae04f444fa361dd78e33577d010ec9abb4a55dadd2",
+      "thief_commit": "0d85f26142f7e8b7eea99165f4535e9f6583fb07d8b1008ee419c68cfed24894"
     },
     {
       "turn": 9,
@@ -116,8 +116,8 @@
         6,
         2
       ],
-      "cop_commit": "5c6cec6b15d23bc5e280fdd0803199686d7180f989f05c8988323b0cac835aa2",
-      "thief_commit": "3d6784e691269c5e6ba7d25abe2469c1c99868946148f2e9f26a632640f8e88b"
+      "cop_commit": "b8e3ea7638a562d9b630483e1393ec9170d8008218a1671f82358473e5ee731d",
+      "thief_commit": "cbf900923b3b2a8e8b9d4ab94ddefa9c780dac43ae14cf5749879bbe25d580f1"
     },
     {
       "turn": 10,
@@ -129,9 +129,9 @@
         6,
         3
       ],
-      "cop_commit": "8d873691b3ae4891666181b5acd194ddb08c32a1509bae98f5ac07dc15a57b0e",
-      "thief_commit": "0e1b49464275ff7eae210bb8ffb943b082ad74ca62bbdaac5d338586bd554183"
+      "cop_commit": "e74f28197186cefc2a778e2db8d78a6044102366acfe3da9ed3030b0195ea42a",
+      "thief_commit": "e92b980b016a4e6215b18f72b2dc9bd4b73d67a72db3dfc09eaac9f83d9e2d58"
     }
   ],
-  "timestamp": "2026-08-05T21:08:47Z"
+  "timestamp": "2026-08-09T07:44:39Z"
 }
