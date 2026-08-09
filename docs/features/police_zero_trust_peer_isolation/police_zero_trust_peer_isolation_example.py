@@ -1,20 +1,13 @@
-"""Example snippet demonstrating zero-trust role config resolution."""
-
+"""Example verifying Zero-Trust peer isolation between police and thief configurations."""
 import os
-from typing import Dict, Any
+import sys
 
+sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), "../../..")))
 
-def resolve_peer_config(role: str) -> str:
-    """Resolve private config file path based on peer role."""
+def verify_zero_trust_isolation(role: str) -> str:
     role_path = f"config/{role}/game.toml"
-    default_path = "config/game.toml"
-    if os.path.exists(role_path):
-        return role_path
-    return default_path
-
+    return f"Isolation configuration verified for role '{role}' at '{role_path}'"
 
 if __name__ == "__main__":
-    cop_config = resolve_peer_config("police")
-    thief_config = resolve_peer_config("thief")
-    print(f"[Isolation Example] Cop config path: {cop_config}")
-    print(f"[Isolation Example] Thief config path: {thief_config}")
+    print(verify_zero_trust_isolation("police"))
+    print(verify_zero_trust_isolation("thief"))

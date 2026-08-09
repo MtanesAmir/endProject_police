@@ -1,20 +1,17 @@
-"""Example snippet for generating experiment analysis plots."""
-
+"""Example snippet for generating strategy comparison plots."""
 import os
-from typing import Dict, Any
+import sys
 
+sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), "../../..")))
 
-def generate_example_scent_decay_data(turns: int = 20, rho: float = 0.10) -> list:
-    """Simulate scent decay intensity values over time."""
-    intensity = 0.9
-    data = [intensity]
-    for _ in range(1, turns):
-        intensity = max(0.0, (1 - rho) * intensity)
-        data.append(round(intensity, 4))
-    return data
-
+def sample_decay_calculation(initial_intensity: float, decay_rate: float, steps: int):
+    values = []
+    intensity = initial_intensity
+    for _ in range(steps):
+        values.append(round(intensity, 4))
+        intensity = max(0.0, intensity * (1.0 - decay_rate))
+    return values
 
 if __name__ == "__main__":
-    decay_curve = generate_example_scent_decay_data()
-    print("[Plotter Example] Generated Scent Decay Intensity Curve (turns 1-20):")
-    print(decay_curve)
+    decay_curve = sample_decay_calculation(0.9, 0.1, 5)
+    print(f"[Plot Helper] Sample decay progression over 5 steps: {decay_curve}")

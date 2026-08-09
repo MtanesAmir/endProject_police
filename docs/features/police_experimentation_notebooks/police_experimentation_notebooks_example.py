@@ -1,35 +1,18 @@
-"""Example experiment script for police_experimentation_notebooks feature."""
+"""Example snippet for benchmark experimentation and analytics recording."""
+import os
+import sys
 
-import json
-import time
+sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), "../../..")))
 
-
-def run_experiment_benchmark(num_trials: int = 10, decay_rate: float = 0.10) -> dict:
-    """Run benchmark simulation evaluating scent decay rate and game survival."""
-    results = []
-    for trial in range(num_trials):
-        # Simulated steps to capture / end of match
-        steps = 15 + (trial % 10)
-        captured = steps < 35
-        results.append({
-            "trial": trial + 1,
-            "decay_rate": decay_rate,
-            "steps": steps,
-            "outcome": "COP_WIN" if captured else "THIEF_WIN"
-        })
-
-    summary = {
-        "num_trials": num_trials,
-        "decay_rate": decay_rate,
-        "mean_steps": sum(r["steps"] for r in results) / num_trials,
-        "cop_wins": sum(1 for r in results if r["outcome"] == "COP_WIN"),
-        "thief_wins": sum(1 for r in results if r["outcome"] == "THIEF_WIN"),
-        "trials": results
+def record_experiment_trial(trial_id: int, winner: str, turns: int, cop_score: int, thief_score: int):
+    return {
+        "trial": trial_id,
+        "winner": winner,
+        "turns": turns,
+        "cop_score": cop_score,
+        "thief_score": thief_score
     }
-    return summary
-
 
 if __name__ == "__main__":
-    benchmark_data = run_experiment_benchmark(num_trials=5, decay_rate=0.10)
-    print(f"[Benchmark Example] Completed {benchmark_data['num_trials']} trial runs.")
-    print(f"Mean Steps: {benchmark_data['mean_steps']}, Cop Wins: {benchmark_data['cop_wins']}")
+    result = record_experiment_trial(1, "police", 14, 20, 5)
+    print(f"[Experiment Benchmark] Recorded trial outcome: {result}")

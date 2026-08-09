@@ -1,0 +1,9 @@
+{
+  "status": "SUCCESS",
+  "files": [
+    "declaration_police.json",
+    "config_police.json",
+    "log_police.json",
+    "result_police.json"
+  ]
+}

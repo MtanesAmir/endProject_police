@@ -1,43 +1,26 @@
-"""Example demonstrating custom BrainBase subclass implementation and dynamic loading."""
+"""Example custom user brain implementation inheriting from BrainBase."""
+import os
+import sys
+from typing import Dict, Any, Tuple
 
-import importlib
-from typing import Dict, Any, Tuple, Optional, List
+sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), "../../..")))
+
 from src.strategy.base_brain import BrainBase
 
-
-class CustomHeuristicBrain(BrainBase):
-    """Custom user-defined BrainBase implementation example."""
-
+class CustomPoliceBrainExample(BrainBase):
     def __init__(self, grid_size: int = 7):
         super().__init__(grid_size=grid_size)
 
+    def _decide_move(self, state: Dict[str, Any]) -> Tuple[int, int]:
+        return (0, 1)
+
     def _pick_move(self, state: Dict[str, Any]) -> Tuple[int, int]:
-        """Custom heuristic pick move logic."""
-        pos = state.get("police_pos", (0, 0))
-        target = state.get("thief_pos", (3, 3))
-        dx = 1 if target[0] > pos[0] else (-1 if target[0] < pos[0] else 0)
-        dy = 1 if target[1] > pos[1] else (-1 if target[1] < pos[1] else 0)
-        if dx != 0:
-            return (pos[0] + dx, pos[1])
-        return (pos[0], pos[1] + dy)
+        return self._decide_move(state)
 
-    def _decide_move(
-        self,
-        state: Dict[str, Any],
-        barriers: Optional[List[Tuple[Tuple[int, int], Tuple[int, int]]]] = None,
-    ) -> Tuple[int, int]:
-        """Custom decide move logic."""
-        return self._pick_move(state)
-
-
-def load_brain_class(class_path: str) -> type:
-    """Dynamically load brain class from package.module:ClassName string."""
-    module_path, class_name = class_path.split(":")
-    module = importlib.import_module(module_path)
-    return getattr(module, class_name)
-
+    def _decide_bluff(self, state: Dict[str, Any]) -> str:
+        return "Heading towards lower quadrant"
 
 if __name__ == "__main__":
-    brain = CustomHeuristicBrain()
-    move = brain._decide_move({"police_pos": (0, 0), "thief_pos": (3, 3)})
-    print(f"[Custom Brain Example] Decided move: {move}")
+    brain = CustomPoliceBrainExample()
+    move = brain._decide_move({"my_pos": (0, 0)})
+    print(f"[Custom Brain Example] Selected move: {move}")

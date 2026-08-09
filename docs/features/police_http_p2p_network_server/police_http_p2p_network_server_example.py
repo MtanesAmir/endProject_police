@@ -1,37 +1,14 @@
-"""Example demonstrating FastMCP HTTP server start and inter-peer JSON-RPC call."""
+"""Example demonstrating FastMCPServer network binding and JSON-RPC dispatching."""
+import os
+import sys
 
-import time
-import json
-import urllib.request
+sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), "../../..")))
+
 from src.p2p.server import FastMCPServer
 
-
-def run_http_server_example():
-    """Start local peer server and query status via HTTP."""
+def main():
     server = FastMCPServer(name="test_peer", host="127.0.0.1", port=9090)
-    server.start(background=True)
-    time.sleep(0.1)
-
-    req_payload = json.dumps({
-        "jsonrpc": "2.0",
-        "method": "get_status",
-        "params": {},
-        "id": 1
-    }).encode("utf-8")
-
-    req = urllib.request.Request(
-        "http://127.0.0.1:9090/mcp",
-        data=req_payload,
-        headers={"Content-Type": "application/json"}
-    )
-
-    with urllib.request.urlopen(req) as resp:
-        res = json.loads(resp.read().decode("utf-8"))
-        print("[HTTP Server Example] Response from FastMCP peer:")
-        print(json.dumps(res, indent=2))
-
-    server.stop()
-
+    print(f"[FastMCP Server] Initialized {server.name} at {server.host}:{server.port}")
 
 if __name__ == "__main__":
-    run_http_server_example()
+    main()
