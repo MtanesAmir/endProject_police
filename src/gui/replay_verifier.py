@@ -6,6 +6,7 @@ of SHA-256 commitments, and detects log tampering.
 
 import hashlib
 import json
+import secrets
 from typing import List, Dict, Any, Union, Optional
 
 
@@ -19,13 +20,10 @@ class ReplayVerifier:
         intent: Union[str, Dict[str, Any], List[Any]] = "",
         state: Union[str, Dict[str, Any], List[Any]] = ""
     ) -> str:
-        """Compute SHA-256 commitment hash: SHA256(nonce | move | intent | state)."""
-        move_str = json.dumps(move, sort_keys=True) if isinstance(move, (dict, list)) else str(move)
-        intent_str = json.dumps(intent, sort_keys=True) if isinstance(intent, (dict, list)) else str(intent)
-        state_str = json.dumps(state, sort_keys=True) if isinstance(state, (dict, list)) else str(state)
-
-        payload = f"{nonce}|{move_str}|{intent_str}|{state_str}"
-        return hashlib.sha256(payload.encode("utf-8")).hexdigest()
+        """Compute SHA-256 commitment hash using canonical JSON payload."""
+        payload = {"intent": intent, "move": move, "nonce": nonce, "state": state}
+        serialized = json.dumps(payload, sort_keys=True, separators=(",", ":"))
+        return hashlib.sha256(serialized.encode("utf-8")).hexdigest()
 
     def verify_step(self, log_entry: Dict[str, Any]) -> str:
         """Verify a single match log entry step.
@@ -49,7 +47,7 @@ class ReplayVerifier:
 
         recomputed = self.compute_hash(nonce=str(nonce), move=move, intent=intent, state=state)
 
-        if recomputed.lower() == str(commit_hash).lower():
+        if secrets.compare_digest(recomputed.lower(), str(commit_hash).lower()):
             return "Verified OK"
         return "TAMPERED"
 
@@ -71,6 +69,8 @@ class ReplayVerifier:
                         entries = data["steps"]
                     elif isinstance(data, dict) and "logs" in data:
                         entries = data["logs"]
+                    elif isinstance(data, dict) and "trajectory" in data:
+                        entries = data["trajectory"]
                     else:
                         entries = [data]
             except Exception as e:
@@ -108,7 +108,8 @@ class ReplayVerifier:
                     "first_tampered_step": idx,
                     "verified_steps": verified_steps,
                     "total_steps": len(entries),
-                    "step_results": step_results
+                    "step_results": step_results,
+                    "final_score": {"cop": 0, "thief": 0}
                 }
 
         return {

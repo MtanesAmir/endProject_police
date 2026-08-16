@@ -102,7 +102,7 @@ class MatchRunner:
             # Step 4: Check capture
             if self.capture_detector.check_direct_capture(cop_pos, thief_pos, radius=0):
                 outcome = "COP_WIN"
-                trajectory.append({"turn": turn, "cop": cop_pos, "thief": thief_pos, "event": "CAPTURE"})
+                trajectory.append({"turn": turn, "cop": cop_pos, "thief": thief_pos, "event": "CAPTURE_CLAIM"})
                 break
 
             trajectory.append({
