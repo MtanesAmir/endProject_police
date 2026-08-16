@@ -16,7 +16,7 @@ class ConfigLoader:
     def __init__(
         self,
         contract_path: str = "config/game.json",
-        private_config_path: str = "config/game.toml"
+        private_config_path: str = "config/config.toml"
     ):
         self.contract_path = contract_path
         self.private_config_path = private_config_path
@@ -56,7 +56,7 @@ class ConfigLoader:
         target_path = self.private_config_path
 
         if role:
-            role_specific_path = f"config/{role}/game.toml"
+            role_specific_path = f"config/{role}/config.toml"
             if os.path.exists(role_specific_path):
                 target_path = role_specific_path
 

@@ -11,6 +11,25 @@ import hashlib
 from typing import Dict, Any, Optional, List, Union
 
 
+class TokenBucket:
+    """Token Bucket rate limiter algorithm."""
+    def __init__(self, rate: float, capacity: int):
+        self.rate = rate
+        self.capacity = capacity
+        self.tokens = float(capacity)
+        self.last_update = time.monotonic()
+
+    def consume(self, tokens: int = 1) -> bool:
+        now = time.monotonic()
+        elapsed = now - self.last_update
+        self.tokens = min(float(self.capacity), self.tokens + elapsed * self.rate)
+        self.last_update = now
+        if self.tokens >= tokens:
+            self.tokens -= tokens
+            return True
+        return False
+
+
 class GmailReporter:
     """Automated Gmail Reporter and Match Artifact Compiler for Police Agent."""
 
@@ -25,6 +44,8 @@ class GmailReporter:
         self.credentials_path = credentials_path
         self.token_path = token_path
         self.evaluator_email = evaluator_email
+        # Rate limit: 30 requests per minute (0.5 req/sec), burst capacity 30
+        self.rate_limiter = TokenBucket(rate=0.5, capacity=30)
 
     def compile_match_reports(self, summary_data: Dict[str, Any]) -> Dict[str, Dict[str, Any]]:
         """Compile the 4 mandatory signed JSON match report artifacts.
@@ -87,7 +108,14 @@ class GmailReporter:
         subject: str,
         body_json: Dict[str, Any]
     ) -> Dict[str, Any]:
-        """Send automated Gmail report message."""
+        """Send automated Gmail report message with rate limiting."""
+        if not self.rate_limiter.consume(1):
+            return {
+                "status": "RATE_LIMITED", 
+                "error": "Exceeded 30 requests per minute limit",
+                "message_id": None
+            }
+
         recipient = recipient or self.evaluator_email
         
         # Check OAuth 2.0 credential files
