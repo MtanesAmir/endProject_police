@@ -62,17 +62,22 @@ class BeliefGrid:
         self.normalize()
 
     def update_from_hint(
-        self, hint_position: Tuple[int, int], reliability: float = 0.8
+        self, direction: str, reliability: float = 0.8
     ) -> None:
-        """Updates probabilities based on opponent verbal hint with reliability weighting."""
-        hr, hc = hint_position
+        """Updates probabilities based on opponent verbal direction hint using Bayes' rule."""
         for r in range(self.grid_size):
             for c in range(self.grid_size):
-                if (r, c) == (hr, hc):
+                likelihood = 1.0
+                if direction == "N" and r < self.grid_size // 2:
+                    likelihood = reliability
+                elif direction == "S" and r > self.grid_size // 2:
+                    likelihood = reliability
+                elif direction == "W" and c < self.grid_size // 2:
+                    likelihood = reliability
+                elif direction == "E" and c > self.grid_size // 2:
                     likelihood = reliability
                 else:
-                    # Distribute remaining probability across other 48 cells
-                    likelihood = (1.0 - reliability) / (self.total_cells - 1)
+                    likelihood = 1.0 - reliability
                 self.grid[r][c] *= likelihood
         self.normalize()
 

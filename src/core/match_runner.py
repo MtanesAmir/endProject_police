@@ -13,6 +13,8 @@ from src.domain.capture import CaptureDetector
 from src.security.commit_reveal import CommitRevealEngine
 from src.domain.barriers import BarrierManager
 from src.domain.config_loader import ConfigLoader
+from src.domain.belief import BeliefGrid
+from src.domain.trash_talk import TrashTalkProfiler
 
 
 class MatchRunner:
@@ -33,6 +35,8 @@ class MatchRunner:
         self.police_brain = MyPoliceBrain(grid_size=grid_size)
         self.thief_brain = ThiefBrain(start_pos=(3, 3), grid_size=grid_size)
         self.scent_tracker = ScentTracker(grid_size=grid_size)
+        self.belief_grid = BeliefGrid(grid_size=grid_size)
+        self.trash_talk_profiler = TrashTalkProfiler()
         self.capture_detector = CaptureDetector()
         self.crypto_engine = CommitRevealEngine()
 
@@ -44,7 +48,12 @@ class MatchRunner:
         outcome = "THIEF_WIN"
 
         for turn in range(1, self.max_turns + 1):
-            state_cop = {"police_pos": cop_pos, "thief_pos": thief_pos, "turn": turn}
+            state_cop = {
+                "police_pos": cop_pos, 
+                "thief_pos": None, 
+                "turn": turn, 
+                "belief_grid": self.belief_grid.get_grid()
+            }
             state_thief = {"cop_position": cop_pos, "thief_position": thief_pos, "turn": turn}
 
             # Step 1: Brain decisions
@@ -79,9 +88,16 @@ class MatchRunner:
             cop_pos = cop_next
             thief_pos = thief_next
 
-            # Step 3: Scent emission and decay
-            self.scent_tracker.apply_emission(thief_pos)
+            # Step 3: Scent decay and emission (decay first to match math formula)
             self.scent_tracker.apply_decay(rho=0.10)
+            self.scent_tracker.apply_emission(thief_pos)
+            self.belief_grid.update_from_scent(self.scent_tracker.get_matrix())
+            
+            # Step 3b: Process verbal hint
+            thief_hint = self.thief_brain._decide_bluff(state_thief, thief_next)
+            direction = thief_hint.split()[-1] if thief_hint else "N"
+            reliability = self.trash_talk_profiler.evaluate_truthfulness(thief_hint, self.scent_tracker.get_matrix())
+            self.belief_grid.update_from_hint(direction, reliability)
 
             # Step 4: Check capture
             if self.capture_detector.check_direct_capture(cop_pos, thief_pos, radius=0):
