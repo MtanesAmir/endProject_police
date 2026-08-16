@@ -1,7 +1,7 @@
 """Police strategy decision engine implementing MyPoliceBrain."""
 
 import math
-from typing import Any, Dict, List, Optional, Tuple
+from typing import Any, Dict, List, Optional, Tuple, Set
 from src.strategy.base_brain import ACTIONS, GRID_SIZE, BrainBase
 from src.strategy.q_learning import QLearningAgent
 
@@ -71,7 +71,7 @@ class MyPoliceBrain(BrainBase):
     def _decide_move(
         self,
         state: Dict[str, Any],
-        barriers: Optional[List[Tuple[Tuple[int, int], Tuple[int, int]]]] = None,
+        barriers: Optional[Set[Tuple[int, int]]] = None,
     ) -> Tuple[int, int]:
         """Decide next valid grid position, prioritizing distance minimization to target or Q-learning action."""
         police_pos = state.get("police_pos", (0, 0))

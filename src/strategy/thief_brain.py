@@ -1,6 +1,6 @@
 """Thief Brain Strategy Module for Thief agent evasion and deception."""
 
-from typing import Dict, Any, List, Tuple, Optional
+from typing import Dict, Any, List, Tuple, Optional, Set
 import random
 
 from src.strategy.base_brain import BrainBase
@@ -44,7 +44,7 @@ class ThiefBrain(BrainBase):
     def _decide_move(
         self,
         state: Dict[str, Any],
-        barriers: Optional[List[Tuple[Tuple[int, int], Tuple[int, int]]]] = None,
+        barriers: Optional[Set[Tuple[int, int]]] = None,
     ) -> Tuple[int, int]:
         """Decide next grid position given state and barrier constraints."""
         valid_positions = [p.to_tuple() for p in legal_moves(self.position, grid_size=self.grid_size)]

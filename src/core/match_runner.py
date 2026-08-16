@@ -11,6 +11,8 @@ from src.strategy.thief_brain import ThiefBrain
 from src.domain.scent import ScentTracker
 from src.domain.capture import CaptureDetector
 from src.security.commit_reveal import CommitRevealEngine
+from src.domain.barriers import BarrierManager
+from src.domain.config_loader import ConfigLoader
 
 
 class MatchRunner:
@@ -19,6 +21,15 @@ class MatchRunner:
     def __init__(self, grid_size: int = 7, max_turns: int = 35):
         self.grid_size = grid_size
         self.max_turns = max_turns
+        
+        try:
+            config = ConfigLoader().load_contract()
+            max_barriers = config.get("movement_and_barriers", {}).get("max_barriers", 14)
+        except Exception:
+            max_barriers = 14
+            
+        self.barrier_manager = BarrierManager(max_barriers=max_barriers, grid_size=grid_size)
+        
         self.police_brain = MyPoliceBrain(grid_size=grid_size)
         self.thief_brain = ThiefBrain(start_pos=(3, 3), grid_size=grid_size)
         self.scent_tracker = ScentTracker(grid_size=grid_size)
@@ -37,8 +48,29 @@ class MatchRunner:
             state_thief = {"cop_position": cop_pos, "thief_position": thief_pos, "turn": turn}
 
             # Step 1: Brain decisions
-            cop_next = self.police_brain._decide_move(state_cop)
-            thief_next = self.thief_brain._decide_move(state_thief)
+            current_barriers = {b.to_tuple() for b in self.barrier_manager.get_barriers()}
+            cop_next = self.police_brain._decide_move(state_cop, barriers=current_barriers)
+            thief_next = self.thief_brain._decide_move(state_thief, barriers=current_barriers)
+
+            # Step 1b: Barrier Placement Logic (STAY)
+            barrier_placed = None
+            if cop_next == cop_pos:
+                # Attempt to place barrier in adjacent cell prioritizing direction towards thief
+                dx = thief_pos[0] - cop_pos[0]
+                dy = thief_pos[1] - cop_pos[1]
+                
+                directions = []
+                if dx != 0: directions.append((1 if dx > 0 else -1, 0))
+                if dy != 0: directions.append((0, 1 if dy > 0 else -1))
+                for d in [(0, 1), (0, -1), (1, 0), (-1, 0)]:
+                    if d not in directions:
+                        directions.append(d)
+                
+                for dx_b, dy_b in directions:
+                    b_pos = (cop_pos[0] + dx_b, cop_pos[1] + dy_b)
+                    if self.barrier_manager.place_barrier(b_pos, police_pos=cop_pos, occupied_positions=[cop_pos, thief_pos]):
+                        barrier_placed = b_pos
+                        break
 
             # Step 2: Commit-Reveal
             cop_commit, cop_nonce = self.crypto_engine.commit(str(state_cop), str(cop_next), "COP_MOVE")
@@ -63,6 +95,7 @@ class MatchRunner:
                 "thief": thief_pos,
                 "cop_commit": cop_commit,
                 "thief_commit": thief_commit,
+                "barrier_placed": barrier_placed,
             })
 
         summary = {

@@ -1,7 +1,7 @@
 """Base brain module defining the abstract interface for Police strategies."""
 
 from abc import ABC, abstractmethod
-from typing import Any, Dict, List, Optional, Tuple
+from typing import Any, Dict, List, Optional, Tuple, Set
 
 GRID_SIZE = 7
 
@@ -30,7 +30,7 @@ class BrainBase(ABC):
     def _decide_move(
         self,
         state: Dict[str, Any],
-        barriers: Optional[List[Tuple[Tuple[int, int], Tuple[int, int]]]] = None,
+        barriers: Optional[Set[Tuple[int, int]]] = None,
     ) -> Tuple[int, int]:
         """Decide next grid position given current state and barrier constraints."""
         pass
@@ -44,12 +44,9 @@ class BrainBase(ABC):
         self,
         from_pos: Tuple[int, int],
         to_pos: Tuple[int, int],
-        barriers: Optional[List[Tuple[Tuple[int, int], Tuple[int, int]]]] = None,
+        barriers: Optional[Set[Tuple[int, int]]] = None,
     ) -> bool:
-        """Check if movement from from_pos to to_pos crosses any barrier."""
+        """Check if target position to_pos is blocked by any barrier cell."""
         if not barriers:
             return False
-        for p1, p2 in barriers:
-            if (from_pos == p1 and to_pos == p2) or (from_pos == p2 and to_pos == p1):
-                return True
-        return False
+        return to_pos in barriers
