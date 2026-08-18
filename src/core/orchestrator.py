@@ -64,15 +64,19 @@ class PoliceOrchestrator:
         self.watchdog.update_heartbeat()
         logger.info(f"Orchestrator received message: {msg_type}")
 
-        if msg_type == "PING":
+        if msg_type in ("PING", "receive_control"):
             return {"status": "PONG", "timestamp": time.time()}
 
-        if msg_type == "TURN_INIT":
-            self.current_turn = payload.get("turn", self.current_turn + 1)
+        if msg_type in ("TURN_INIT", "negotiate"):
+            # Do NOT increment current_turn here. It should start at 1 when we process our first turn.
             return {"status": "ACK", "turn": self.current_turn, "state": self.fsm.current_state}
 
-        if msg_type == "PROCESS_TURN":
+        if msg_type in ("PROCESS_TURN", "receive_turn"):
             return self.process_turn(payload)
+
+        if msg_type == "submit_audit":
+            self.fsm.transition(GamePhase.VERIFYING)
+            return {"status": "OK", "msg_type": msg_type, "state": self.fsm.current_state}
 
         return {"status": "OK", "msg_type": msg_type, "state": self.fsm.current_state}
 
@@ -132,11 +136,20 @@ class PoliceOrchestrator:
             self.current_turn += 1
 
             self.last_action_data = {
-                "turn": self.current_turn,
-                "police_pos": self.police_pos,
-                "commit_hash": commit_hash,
-                "verified": verification_status,
+                "step": self.current_turn,
+                "sender": "police",
+                "commit": commit_hash,
+                "hint": "Police move.",
+                "timestamp": str(time.time()),
+                "smell_grid": {},
+                "barrier_placed": None,
+                "capture_claim": list(self.police_pos),
+                "claim_response": None,
+                "win_claim": None,
             }
+
+            if self.p2p_server:
+                self.p2p_server.call_opponent("receive_turn", self.last_action_data)
 
             return {
                 "success": True,

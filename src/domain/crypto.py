@@ -16,8 +16,8 @@ class CommitmentScheme:
 
     @staticmethod
     def canonical_serialize(payload: Any) -> str:
-        """Serializes payload into canonical JSON string (sorted keys, compact separators)."""
-        return json.dumps(payload, sort_keys=True, separators=(",", ":"))
+        """Serializes payload into canonical JSON string (sorted keys, compact separators, UTF-8 strings)."""
+        return json.dumps(payload, sort_keys=True, ensure_ascii=False, separators=(",", ":"))
 
     def create_commitment(
         self, move: Any, nonce: Optional[str] = None
@@ -29,9 +29,10 @@ class CommitmentScheme:
         if nonce is None:
             nonce = self.generate_nonce(16)
 
-        payload = {"move": move, "nonce": nonce}
+        payload = {"move": move}
         serialized = self.canonical_serialize(payload)
-        commitment_hash = hashlib.sha256(serialized.encode("utf-8")).hexdigest()
+        seed = f"{serialized}|{nonce}"
+        commitment_hash = hashlib.sha256(seed.encode("utf-8")).hexdigest()
         return commitment_hash, nonce
 
     def verify_reveal(self, commitment: str, move: Any, nonce: str) -> bool:
@@ -53,16 +54,18 @@ class CommitRevealEngine:
         if nonce is None:
             nonce = self.scheme.generate_nonce(16)
 
-        payload = {"intent": intent, "move": move, "nonce": nonce, "state": state}
+        payload = {"intent": intent, "move": move, "state": state}
         serialized = self.scheme.canonical_serialize(payload)
-        commitment_hash = hashlib.sha256(serialized.encode("utf-8")).hexdigest()
+        seed = f"{serialized}|{nonce}"
+        commitment_hash = hashlib.sha256(seed.encode("utf-8")).hexdigest()
         return commitment_hash, nonce
 
     def verify(
         self, commitment: str, state: Any, move: Any, intent: Any, nonce: str
     ) -> bool:
         """Verifies revealed state, move, intent, and nonce against original commitment."""
-        payload = {"intent": intent, "move": move, "nonce": nonce, "state": state}
+        payload = {"intent": intent, "move": move, "state": state}
         serialized = self.scheme.canonical_serialize(payload)
-        recalculated_hash = hashlib.sha256(serialized.encode("utf-8")).hexdigest()
+        seed = f"{serialized}|{nonce}"
+        recalculated_hash = hashlib.sha256(seed.encode("utf-8")).hexdigest()
         return secrets.compare_digest(commitment, recalculated_hash)

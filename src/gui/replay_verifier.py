@@ -21,9 +21,10 @@ class ReplayVerifier:
         state: Union[str, Dict[str, Any], List[Any]] = ""
     ) -> str:
         """Compute SHA-256 commitment hash using canonical JSON payload."""
-        payload = {"intent": intent, "move": move, "nonce": nonce, "state": state}
-        serialized = json.dumps(payload, sort_keys=True, separators=(",", ":"))
-        return hashlib.sha256(serialized.encode("utf-8")).hexdigest()
+        payload = {"intent": intent, "move": move, "state": state}
+        serialized = json.dumps(payload, sort_keys=True, ensure_ascii=False, separators=(",", ":"))
+        seed = f"{serialized}|{nonce}"
+        return hashlib.sha256(seed.encode("utf-8")).hexdigest()
 
     def verify_step(self, log_entry: Dict[str, Any]) -> str:
         """Verify a single match log entry step.
