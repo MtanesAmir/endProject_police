@@ -51,14 +51,24 @@ def main(args_list: Optional[List[str]] = None) -> int:
 
     if args.command == "peer":
         server_name = f"{args.role}_peer"
+        
+        # Ensure we use mcp from mcp_server for the blocking run loop
+        from src.network.mcp_server import mcp
+        
         server = FastMCPServer(
             name=server_name,
             host=args.host,
             port=args.port,
             opponent_url=args.opponent_url
         )
+        
+        # Start custom server logic (if background=False, it just sets is_running=True)
         server.start()
         print(f"[{args.role.upper()} PEER] FastMCP server '{server_name}' running on {args.host}:{args.port}")
+        
+        # Invoke the blocking loop from mcp_server
+        mcp.run(transport="sse", host=args.host, port=args.port)
+        
         return 0
 
     elif args.command == "replay":

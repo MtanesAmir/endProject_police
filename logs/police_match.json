@@ -1,137 +1,509 @@
 {
-  "total_turns": 10,
+  "total_turns": 35,
   "outcome": "THIEF_WIN",
   "trajectory": [
     {
       "turn": 1,
       "cop": [
         0,
-        1
+        0
       ],
       "thief": [
         4,
         3
       ],
-      "cop_commit": "1ee90204e74be33e92964c0341946603716f0e6383f1dff63ecdc1139daca0d5",
-      "thief_commit": "626974bd07d3779be4727181287d7c9beae88a352d01a811e00e08d50f24e958"
+      "cop_commit": "e321ac9531375c0601e29843118a79d82f1aae8cd25d6035882103a383cadfef",
+      "thief_commit": "da4495bd809dd84bead69acd3384e5a972a41db5a1dc6e0f52c70a54d1698bd1",
+      "barrier_placed": [
+        1,
+        0
+      ]
     },
     {
       "turn": 2,
       "cop": [
         0,
-        2
+        1
       ],
       "thief": [
         5,
         3
       ],
-      "cop_commit": "27f24ca7723473f9c2e3e0bc2efeb7ae0f1a2d3473ffb1b5fef3aa11de0b04ac",
-      "thief_commit": "8c59820beee29f1c32a84eef9fbf3c56b03ea44b6a596c8b4204e091ea91b3ea"
+      "cop_commit": "c3f7fd5ba765a82071e943eb4d24c4c81564ca4fdcf0338f252f7984ecc9d9b4",
+      "thief_commit": "7bddf976cca98d21e3bd18dcafc3da49f4c7d3bc26a0430e6166f3fefd902243",
+      "barrier_placed": null
     },
     {
       "turn": 3,
+      "cop": [
+        0,
+        2
+      ],
+      "thief": [
+        6,
+        3
+      ],
+      "cop_commit": "4f2938af246ef3bfdbd8c70566a3b130cd081edde47c0c1e1ac5f87d0a94d4b9",
+      "thief_commit": "fe10b0514fae39a6f465485c4cb25000c3a2c90b5dbb89fa2301722c04be0c9c",
+      "barrier_placed": null
+    },
+    {
+      "turn": 4,
       "cop": [
         0,
         3
       ],
       "thief": [
         6,
-        3
+        4
       ],
-      "cop_commit": "c751e854b1f95568daa31eb3423155b9781792205c7cd8d6ccc752516a29dbd2",
-      "thief_commit": "2b526a01b0c6897527c09b717cb3583885b6f25e8a5f6113728784d6e97d55fb"
-    },
-    {
-      "turn": 4,
-      "cop": [
-        1,
-        3
-      ],
-      "thief": [
-        6,
-        2
-      ],
-      "cop_commit": "71e0f1b719e629a01d4329042797575a51313c1411e64982cd1c0843198301dc",
-      "thief_commit": "d32d224cda2813ce76545f6f8c8264506a107257d80447dd93076c82a80715d3"
+      "cop_commit": "5830e8dbc82282eddafbb135e16fcdc66254a22883e25a1f88842192bed2c488",
+      "thief_commit": "b95546b3b024b3747266034f80356ed86c69b869f6da074d71f247e78a69f232",
+      "barrier_placed": null
     },
     {
       "turn": 5,
       "cop": [
-        1,
-        2
+        0,
+        4
       ],
       "thief": [
         6,
-        1
+        5
       ],
-      "cop_commit": "ef19b596ce2bf6550c55017e7ed725201d2df35d1a861148a930caa8685ee050",
-      "thief_commit": "075309fc7c9418d39a1128034f77a48fc130df63163d5ac950895b184233c168"
+      "cop_commit": "33ae9d5143fce7300e241ccb45f76fc9b8e70d7e95cbbc37955ea341242aa116",
+      "thief_commit": "b943fbeb5581718f608fb618d2b9dfe09547ec8838cb2749b28a9eef7e754483",
+      "barrier_placed": null
     },
     {
       "turn": 6,
       "cop": [
         1,
-        1
+        4
       ],
       "thief": [
         6,
-        0
+        6
       ],
-      "cop_commit": "40f8404f71ca6bf19f571ed4cee7d4ecd177b1ed6ba728a602d3878504625f62",
-      "thief_commit": "2365c5dbeb9b85c97cff8ddba99bf8487316182be8386ccb494fe36f1d68ceca"
+      "cop_commit": "f522f4270a5ad81be06b841dc398f7d12dab745a235ff6001cd47d9dccff9f74",
+      "thief_commit": "d55d8858b460457d9a8f57492e30c56991ab7a7b43ef8c1baf0b9bb011873bfe",
+      "barrier_placed": null
     },
     {
       "turn": 7,
       "cop": [
         1,
-        0
+        5
       ],
       "thief": [
         6,
-        0
+        6
       ],
-      "cop_commit": "f05076c76775b50d6b8da89e63b493eb58f837497b1b3ea27ed17e9f4fdda03e",
-      "thief_commit": "fa83f62ef35d8c9e76313bbb745d076ea215d4e660a776de19809b32f706428e"
+      "cop_commit": "c0d722a3a92cae5c4b614e896ffc4d5d603b196da4ebc6c283032b5c125703fd",
+      "thief_commit": "65bf8577a43d682c6be1a82844ce061d54aabb61d8e7c40799b8cc9134eb3c6f",
+      "barrier_placed": null
     },
     {
       "turn": 8,
       "cop": [
         2,
-        0
+        5
       ],
       "thief": [
         6,
-        1
+        6
       ],
-      "cop_commit": "c79118e9a56187842f75a5614e3cbb7ba3271d077bb0020e721f1e9f62488b46",
-      "thief_commit": "a85f2a291e38ecf7230db7e489186a39e6ef851b1598dea681524a776d3bbca1"
+      "cop_commit": "6439f56f6ff960cf81a529a501ee5e5fcdc4e00bf9d0936cfeaed46ae0532c41",
+      "thief_commit": "8d38d7eda476000214006c36cb9f451599159aa11da8930916895a8b9246abe1",
+      "barrier_placed": null
     },
     {
       "turn": 9,
       "cop": [
-        2,
-        1
+        3,
+        5
       ],
       "thief": [
         6,
-        2
+        6
       ],
-      "cop_commit": "46d66177daa772f95738ea911b7c2c2f61f1508b87791d7c8687147d6766688d",
-      "thief_commit": "0379e9c3f9e54d089c6233dae52d07bf798c7dc1826014c100638cabe7c51180"
+      "cop_commit": "3222fa81208c8794f5694e9cecbe6b1507793748750d9c3ce3971fb553f1deda",
+      "thief_commit": "fd9d7aeef15402cd49a8111c9cb86d47ff8f7c9aae625469f679f5ad8f70f603",
+      "barrier_placed": null
     },
     {
       "turn": 10,
       "cop": [
-        2,
-        2
+        3,
+        6
+      ],
+      "thief": [
+        6,
+        6
+      ],
+      "cop_commit": "06bbba91f34c59109465f7771a5b682719f05b78d4f9a105cd4da522e3912dcd",
+      "thief_commit": "ddc2f81110773b0ca44d2bbdd24d7cdb9f8ae17ace8ee9b79b24dcb80ddd4e39",
+      "barrier_placed": null
+    },
+    {
+      "turn": 11,
+      "cop": [
+        4,
+        6
+      ],
+      "thief": [
+        6,
+        5
+      ],
+      "cop_commit": "c034a7f4f3bc50d2a383b570104320d4544f85d80918bc0c240bc59a8ce3c4d8",
+      "thief_commit": "8f06c2f516c9c3f9172e8eb51de0bbaf4c85599ea8a5073f45ebfcdf4562c981",
+      "barrier_placed": null
+    },
+    {
+      "turn": 12,
+      "cop": [
+        4,
+        6
+      ],
+      "thief": [
+        6,
+        4
+      ],
+      "cop_commit": "7f82d2f979caa327cfaa890c19546dcbf14cb4e063bc4baf132ce586c0026510",
+      "thief_commit": "08e82a2f4fdd29bb6aa30eeaf39e116d9d65912199e5a0145f87afc88542bd97",
+      "barrier_placed": [
+        5,
+        6
+      ]
+    },
+    {
+      "turn": 13,
+      "cop": [
+        4,
+        6
       ],
       "thief": [
         6,
         3
       ],
-      "cop_commit": "a409989ca43cfd2f3129c6a41a5eae77d70130470439e10a5303c0ca9bed0f21",
-      "thief_commit": "b64ea94013138ca427ee4f435d4ae58348503dfcd84f8eaeec03630be334eed7"
+      "cop_commit": "620b947b803e70defbe20739508b3bb8b0ad032a259c9e02c84b703ca67a137b",
+      "thief_commit": "55beee9c63ea596da7c98d8b1f2dbcace7d6f35aa4c091a2ef85a7b0bc779856",
+      "barrier_placed": [
+        4,
+        5
+      ]
+    },
+    {
+      "turn": 14,
+      "cop": [
+        4,
+        6
+      ],
+      "thief": [
+        6,
+        2
+      ],
+      "cop_commit": "b92f200842936016ab9e446bf569be0091bedd476cae20ba5d06af8c1cea5aa0",
+      "thief_commit": "9b86e38b3bf0d86302deee83be6418352c249330a7271df0c8109da0b380dd46",
+      "barrier_placed": [
+        3,
+        6
+      ]
+    },
+    {
+      "turn": 15,
+      "cop": [
+        4,
+        6
+      ],
+      "thief": [
+        6,
+        1
+      ],
+      "cop_commit": "f5c0d26a6ef1fdf3bcbbb2a92456f335896d80789558568209e3acce1a2f090c",
+      "thief_commit": "ff817c08409b2328ec83047e0e9dc7b0754f4783214708c94293cb047049a724",
+      "barrier_placed": null
+    },
+    {
+      "turn": 16,
+      "cop": [
+        4,
+        6
+      ],
+      "thief": [
+        6,
+        0
+      ],
+      "cop_commit": "ddb62963de5179d20701377410d47c08b09a992a004faf8295bc2b2226503742",
+      "thief_commit": "cf6ee5596bb503cddfb8443cafb1198890e372e85e6e5cfc4ed672951734c85c",
+      "barrier_placed": null
+    },
+    {
+      "turn": 17,
+      "cop": [
+        4,
+        6
+      ],
+      "thief": [
+        6,
+        0
+      ],
+      "cop_commit": "ac82c352301080f5a436d0d367d93ac26926898db2090e64be2e0fea765429b7",
+      "thief_commit": "db8e3abaf56ae8ddf5930989ce8d06b0e44ec5fea352461eb3d0c97ecdde22ce",
+      "barrier_placed": null
+    },
+    {
+      "turn": 18,
+      "cop": [
+        4,
+        6
+      ],
+      "thief": [
+        6,
+        0
+      ],
+      "cop_commit": "c9b3d8a8082375b5aad3b614d5e9616ff066d3f52c0e94af2c127259f702ea23",
+      "thief_commit": "28cdb8593c7bdb97769451cd55d1be407d8682ff2de7574834b9f6a41c5a91e8",
+      "barrier_placed": null
+    },
+    {
+      "turn": 19,
+      "cop": [
+        4,
+        6
+      ],
+      "thief": [
+        6,
+        0
+      ],
+      "cop_commit": "58d98ed81fa00883a04c9ed59521797da0a2db753caef7573982ffbe63b37af8",
+      "thief_commit": "0fdb34ea09603c666670b95506d3a4e15f513a0e6b8fa5c61082230543e3383f",
+      "barrier_placed": null
+    },
+    {
+      "turn": 20,
+      "cop": [
+        4,
+        6
+      ],
+      "thief": [
+        6,
+        0
+      ],
+      "cop_commit": "d83f596146cc8350ad514c614378443d478691a3f657c8a832c5d911c97916f9",
+      "thief_commit": "aae548f7d71fb8377a7570cbcd20f603c323a186472c90d283c167dffc5c3b85",
+      "barrier_placed": null
+    },
+    {
+      "turn": 21,
+      "cop": [
+        4,
+        6
+      ],
+      "thief": [
+        6,
+        0
+      ],
+      "cop_commit": "1e5d9016fabdd55aca897f9ad96840dbbc655c4c76ba1588fcaeac2cce77517d",
+      "thief_commit": "ce8d8816008477a8a3d73b33626aa23daabad0e0a188d60ef09550c14eb33af6",
+      "barrier_placed": null
+    },
+    {
+      "turn": 22,
+      "cop": [
+        4,
+        6
+      ],
+      "thief": [
+        6,
+        0
+      ],
+      "cop_commit": "0adeca01c711b74e471a5e7b09decdce2885ce68db947a10250a78bf03c8b431",
+      "thief_commit": "269db3e5504e5e31158595101400573650a482c7f4e9f217e8e919a3d2e96fdf",
+      "barrier_placed": null
+    },
+    {
+      "turn": 23,
+      "cop": [
+        4,
+        6
+      ],
+      "thief": [
+        6,
+        0
+      ],
+      "cop_commit": "bfc015cd6fb993c1542a02982829ad835eb9955ef5cc8c5d6dbbb5c1339da7cd",
+      "thief_commit": "10e504992a20df4271cc1dec77c14a1d1b21786f44e1fbf05fb2eef34f27f0b2",
+      "barrier_placed": null
+    },
+    {
+      "turn": 24,
+      "cop": [
+        4,
+        6
+      ],
+      "thief": [
+        6,
+        0
+      ],
+      "cop_commit": "db65539b80cf01250a329130102f9fbaa5086feb4e37fb4f206727725962b414",
+      "thief_commit": "ea6ffc71290a4ee4c24d02ecf5fef540c69107d62910cf59281e885459ad8077",
+      "barrier_placed": null
+    },
+    {
+      "turn": 25,
+      "cop": [
+        4,
+        6
+      ],
+      "thief": [
+        6,
+        0
+      ],
+      "cop_commit": "7d0da506d063c454f67b2a0034f51a1b673352d93af4991b8208dcfa329df5fa",
+      "thief_commit": "31ba4830067aca4ef273bf10604b89e6b59004d010350271508af7a16ea09455",
+      "barrier_placed": null
+    },
+    {
+      "turn": 26,
+      "cop": [
+        4,
+        6
+      ],
+      "thief": [
+        6,
+        0
+      ],
+      "cop_commit": "93bcdad62298cd87aa6dcb24cabc8b6b2cad9da7a51070f936498a190183250f",
+      "thief_commit": "5e284db4957e08340eb810bb5e316d8da62bb926d9106ce4018bb40f4e113513",
+      "barrier_placed": null
+    },
+    {
+      "turn": 27,
+      "cop": [
+        4,
+        6
+      ],
+      "thief": [
+        6,
+        0
+      ],
+      "cop_commit": "55ebee9a651eb5aa1db38d7b4b9682281cd32d8dbd9e850da9a95435e88f020f",
+      "thief_commit": "8b6e04498be559cf7d5e0d559c1bf81cb97a9db337ce1040300ce63cc24a91eb",
+      "barrier_placed": null
+    },
+    {
+      "turn": 28,
+      "cop": [
+        4,
+        6
+      ],
+      "thief": [
+        6,
+        0
+      ],
+      "cop_commit": "068e265f8e3295234bf737af1e784bed3b769737ef89583ce23504a05d25ec5d",
+      "thief_commit": "c7e6caf2935687b0e0991a119b15ee9f2a8bb8dab04395207ef79cf92b07269a",
+      "barrier_placed": null
+    },
+    {
+      "turn": 29,
+      "cop": [
+        4,
+        6
+      ],
+      "thief": [
+        6,
+        0
+      ],
+      "cop_commit": "7a56e9a0ff529e1da9282d97dede1e657ea9d69320b4c24a310dd8beb5d9da1d",
+      "thief_commit": "a06af5d1bf4b5f6e77a73a42f9502f77b0f7c9c97bbacf24583f40ce2fde7801",
+      "barrier_placed": null
+    },
+    {
+      "turn": 30,
+      "cop": [
+        4,
+        6
+      ],
+      "thief": [
+        6,
+        0
+      ],
+      "cop_commit": "b28f565ffd8f48da98cde0d23d6931cf0d27728608743a1e58cc22a376da3483",
+      "thief_commit": "1eafb05063719848fc8141bf7b5812cb075432d72d9c746d253c669ba3df8fc1",
+      "barrier_placed": null
+    },
+    {
+      "turn": 31,
+      "cop": [
+        4,
+        6
+      ],
+      "thief": [
+        6,
+        0
+      ],
+      "cop_commit": "b24dde10df0b01563f3e611790df8c2a07d3c0fd41bf2e955f8b760e53d90a1a",
+      "thief_commit": "6f2bc65ce634a2beb2c66592a7a2ca31d2bf7b81268ee97f153342d5fd658c46",
+      "barrier_placed": null
+    },
+    {
+      "turn": 32,
+      "cop": [
+        4,
+        6
+      ],
+      "thief": [
+        6,
+        0
+      ],
+      "cop_commit": "b1b651329891df6e3a9538fb10a174d426ba9f340ef3744daf96a2487f63b9a4",
+      "thief_commit": "f2802e04ca31005e3f5db60a4f417da49c20ccb85be54898ebb93b928955aeff",
+      "barrier_placed": null
+    },
+    {
+      "turn": 33,
+      "cop": [
+        4,
+        6
+      ],
+      "thief": [
+        6,
+        0
+      ],
+      "cop_commit": "2653f8b72b7fc9f007e2e1c2e37aecb08d015864c91105e265f27a88f1877267",
+      "thief_commit": "bd9d3b301637b2575adcc6b126abd141c88d6808cf722e6a589a9f075a03c78d",
+      "barrier_placed": null
+    },
+    {
+      "turn": 34,
+      "cop": [
+        4,
+        6
+      ],
+      "thief": [
+        6,
+        0
+      ],
+      "cop_commit": "45e10eac6536b218dfc179c4b66dae4002a2b08a934580d5835d7df270e843e0",
+      "thief_commit": "641175bd78f87c4da203123fefe0cbca9364c73ad07bee1913072fb4a3a93e3e",
+      "barrier_placed": null
+    },
+    {
+      "turn": 35,
+      "cop": [
+        4,
+        6
+      ],
+      "thief": [
+        6,
+        0
+      ],
+      "cop_commit": "eed83b2cabab02f96c8a6d2bd821e7bb5d74a4067e95484f69fa86c248131d08",
+      "thief_commit": "30bc07073fcc5ae2941b18d451e7b45a380932c29404188fe4baa30646e28728",
+      "barrier_placed": null
     }
   ],
-  "timestamp": "2026-08-09T13:24:25Z"
+  "timestamp": "2026-08-16T08:53:02Z"
 }

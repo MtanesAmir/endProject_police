@@ -1,0 +1,140 @@
+Metadata-Version: 2.4
+Name: police_thief
+Version: 1.0.0
+Summary: Distributed Cops-and-Robbers over a Peer-to-Peer Network (Dec-POMDP)
+Requires-Python: >=3.11
+Description-Content-Type: text/markdown
+License-File: LICENSE
+Requires-Dist: pydantic>=2.0
+Requires-Dist: fastmcp>=0.1.0
+Requires-Dist: requests>=2.28.0
+Requires-Dist: matplotlib>=3.7.0
+Provides-Extra: dev
+Requires-Dist: pytest>=6.2.4; extra == "dev"
+Requires-Dist: pytest-cov>=2.12.1; extra == "dev"
+Requires-Dist: ruff>=0.1.0; extra == "dev"
+Dynamic: license-file
+
+# Distributed Cops-and-Robbers over a Peer-to-Peer Network (Dec-POMDP)
+
+[![Python 3.11+](https://img.shields.io/badge/python-3.11+-blue.svg)](https://www.python.org/downloads/)
+[![FastMCP](https://img.shields.io/badge/MCP-FastMCP-green.svg)](https://modelcontextprotocol.io/)
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
+
+## Overview & Academic Summary
+This project implements an autonomous, decentralized multi-agent system executing a **Distributed Cops-and-Robbers** game on a discrete $7 \times 7$ grid over a Peer-to-Peer (P2P) network using the **Model Context Protocol (MCP / FastMCP)**.
+
+The system features two symmetric AI agent roles—**Police** (Cop) and **Robber** (Thief)—that interact autonomously without a central game server or neutral referee. Complete state integrity, turn synchronization, and zero-trust computational fairness are guaranteed via a 4-stage cryptographic **SHA-256 Commit-Reveal Protocol**.
+
+---
+
+## Dec-POMDP Mathematical Formalization
+The game environment is formally defined as an 8-tuple Dec-POMDP:
+$$\langle n, S, \{A_i\}, P, R, \{\Omega_i\}, O, \gamma \rangle$$
+
+1. **Number of Agents ($n = 2$)**: Police Agent ($i=1$) and Thief Agent ($i=2$).
+2. **State Space ($S$)**: Complete grid state $s = (pos_{cop}, pos_{thief}, B, T_{scent}, turn)$ where $B$ is the set of static barriers ($|B| \le 14$).
+3. **Action Space ($A_i$)**: Orthogonal grid moves $A_i \in \{\text{N}, \text{S}, \text{E}, \text{W}, \text{STAY}\}$.
+4. **Transition Function ($P$)**: Deterministic physical move updates subject to grid boundaries $[0..6] \times [0..6]$ and wall barriers.
+5. **Reward Function ($R$)**:
+   - Cop capture of Thief: Cop $+20$, Thief $-20$.
+   - Thief survival up to turn 35: Thief $+10$, Cop $-5$.
+   - Technical loss (protocol violation/cheat attempt): Violator $-20$.
+6. **Observation Space ($\Omega_i$)**: Local observation tuple $\Omega_{cop} = (pos_{cop}, T_{scent\_local}, Hint_{verbal})$.
+7. **Observation Function ($O$)**: Radial scent emission $\tau_{center} = 0.9$ with decay rate $\rho = 0.10$.
+8. **Discount Factor ($\gamma = 0.95$)**: Discounted total cumulative return for finite horizon $T=35$.
+
+---
+
+## System Architecture
+
+```mermaid
+graph TD
+    CopPeer[Cop Peer - FastMCP HTTP] <-->|P2P JSON-RPC| ThiefPeer[Thief Peer - FastMCP HTTP]
+    CopPeer --> CopOrchestrator[Police Orchestrator]
+    ThiefPeer --> ThiefOrchestrator[Thief Orchestrator]
+    
+    CopOrchestrator --> BayesianBelief[Bayesian Belief Grid & Scent Engine]
+    CopOrchestrator --> CommitReveal[Cryptographic SHA-256 Commit-Reveal Engine]
+    CopOrchestrator --> Gatekeeper[Rate Limiter & Gatekeeper]
+    CopOrchestrator --> Watchdog[Watchdog & Deadline Tracker]
+    CopOrchestrator --> LiveGUI[Live Heatmap & Replay Verifier]
+    CopOrchestrator --> GmailReporter[Gmail API Automated Reporter]
+```
+
+---
+
+## Project Directory Layout
+```
+.
+├── config/
+│   ├── game.json             # Signed Shared Contract (7x7 grid, rules)
+│   └── game.toml             # Private Per-Peer Settings (ports, LLM)
+├── docs/
+│   ├── features/             # Feature PRD, Plan, and Todo specifications
+│   ├── instructions/         # Master PRD, PLAN, and TODO lists
+│   ├── PRD_commit_reveal.md  # Mechanism PRD: Commit-Reveal
+│   ├── PRD_bayesian_belief.md# Mechanism PRD: Bayesian Belief Grid
+│   ├── PRD_scent_tracking.md # Mechanism PRD: Dynamic Scent Model
+│   └── PRD_gatekeeper.md     # Mechanism PRD: Gatekeeper Rate Limiter
+├── notebooks/
+│   └── analysis.ipynb        # Jupyter Notebook sensitivity analysis
+├── results/
+│   └── benchmark_summary.json# Experiment benchmark outputs
+├── assets/                   # Architecture diagrams & plots
+├── src/
+│   ├── automation/           # Gmail API reporting automation
+│   ├── core/                 # Orchestrator & State Machine
+│   ├── domain/               # Grid, Scent, Belief, Capture, Crypto
+│   ├── gui/                  # Live Heatmap & Replay Verifier GUI
+│   ├── infra/                # Rate Limiter & LLM Provider
+│   ├── network/              # FastMCP Server wrapper
+│   ├── p2p/                  # P2P Server implementation
+│   ├── reliability/          # Watchdog & Deadline Tracker
+│   └── strategy/             # PoliceBrain, ThiefBrain, Q-Learning
+├── tests/                    # Comprehensive Pytest test suite
+├── main.py                   # CLI Application Entry Point
+├── pyproject.toml            # Root build & dependency configuration
+└── uv.lock                   # Locked dependency manifest
+```
+
+---
+
+## Installation & Setup Guide
+
+### Prerequisites
+- Python 3.11+
+- `uv` (Fast Python package installer)
+
+### Quick Start Commands
+```bash
+# 1. Install dependencies
+uv sync
+
+# 2. Run unit test suite
+uv run pytest
+
+# 3. Run Police Peer Server
+python main.py peer --role police --port 8000
+
+# 4. Run Thief Peer Server
+python main.py peer --role thief --port 8001
+
+# 5. Verify match log integrity
+python main.py replay --log logs/police_match.json
+```
+
+---
+
+## Pre-Submission Verification Checklist
+
+| Requirement | Implementation Status | Verified Component |
+| :--- | :--- | :--- |
+| **Logic & Physics** | ✅ Complete | Grid movement, 14 static barriers, capture mechanics |
+| **Dec-POMDP P2P Server** | ✅ Complete | FastMCP (`police_thief_peer`), HTTP/JSON-RPC transport |
+| **Security & Non-Repudiation**| ✅ Complete | 4-Stage SHA-256 Commit-Reveal Protocol (`CommitmentScheme`) |
+| **Dynamic Scent & Belief** | ✅ Complete | Radial scent decay ($\rho=0.10$), Bayesian belief map updates |
+| **Dual Agent Strategy** | ✅ Complete | `PoliceBrain` (pursuit), `ThiefBrain` (evasion & deception) |
+| **Reliability & Gatekeeper** | ✅ Complete | Watchdog process monitor, Token Bucket rate limiter |
+| **Live GUI & Replay Verifier** | ✅ Complete | Heatmap visualizer, step-by-step cryptographic audit |
+| **Automated Gmail Reporter** | ✅ Complete | OAuth 2.0 signed artifact compiler (`declaration_police.json`, etc.) |

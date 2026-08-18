@@ -1,0 +1,14 @@
+__main__
+automation
+cli
+core
+domain
+experiments
+gui
+infra
+network
+p2p
+reliability
+reporting
+security
+strategy
